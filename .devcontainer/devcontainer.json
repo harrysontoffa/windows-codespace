@@ -1,23 +1,24 @@
 {
   "name": "Windows Codespace",
-  "image": "ghcr.io/dockur/windows:latest",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
   "hostRequirements": {
     "cpus": 4,
     "memory": "8gb",
     "storage": "32gb"
   },
-  "privileged": true,
-  "overrideCommand": false,
-  "containerEnv": {
-    "VERSION": "tiny11",
-    "RAM_SIZE": "4G",
-    "CPU_CORES": "4",
-    "DISK_SIZE": "20G"
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": true,
+      "dockerDashComposeVersion": "v2"
+    }
   },
+  "onCreateCommand": "docker pull ghcr.io/dockur/windows",
+  "postStartCommand": "docker run -d --name windows --privileged -p 8006:8006 -e VERSION=tiny11 -e RAM_SIZE=4G -e CPU_CORES=4 -e DISK_SIZE=20G -v /tmp/windows:/storage ghcr.io/dockur/windows || docker start windows",
   "portsAttributes": {
     "8006": {
       "label": "Windows Desktop",
-      "onAutoForward": "openPreview"
+      "onAutoForward": "openPreview",
+      "protocol": "http"
     }
   },
   "forwardPorts": [8006]
