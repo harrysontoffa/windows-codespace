@@ -1,0 +1,24 @@
+{
+  "name": "Windows Codespace",
+  "image": "ghcr.io/dockur/windows:latest",
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "8gb",
+    "storage": "32gb"
+  },
+  "privileged": true,
+  "overrideCommand": false,
+  "containerEnv": {
+    "VERSION": "tiny11",
+    "RAM_SIZE": "4G",
+    "CPU_CORES": "4",
+    "DISK_SIZE": "20G"
+  },
+  "portsAttributes": {
+    "8006": {
+      "label": "Windows Desktop",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "forwardPorts": [8006]
+}
